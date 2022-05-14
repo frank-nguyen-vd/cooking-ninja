@@ -36,6 +36,32 @@
       ],
       "method": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse minima ex rem quis similique eum ratione quaerat, voluptas molestias ut repudiandae delectus voluptates. Eius esse at tenetur ab accusamus excepturi?",
       "cookingTime": "35 minutes"
+    },
+    {
+      "title": "Prawns",
+      "ingredients": [
+        "prawns",
+        "water"
+      ],
+      "cookingTime": "2 minutes",
+      "method": "Boil prawns with water",
+      "id": "hIXeYP_"
+    },
+    {
+      "title": "1",
+      "ingredients": [],
+      "cookingTime": "1 minutes",
+      "method": "1",
+      "id": "BeYX5QG"
+    },
+    {
+      "title": "2",
+      "ingredients": [
+        "2"
+      ],
+      "cookingTime": "2 minutes",
+      "method": "2",
+      "id": "FxAK9hX"
     }
   ]
 }
