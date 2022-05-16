@@ -1,6 +1,6 @@
 import "./Recipe.css";
 import { apiRecipesUrl } from "../../keys";
-import { useFetch } from "../../components/hooks/useFetch";
+import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 
 export default function Recipe() {
