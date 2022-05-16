@@ -1,27 +1,51 @@
 import "./Recipe.css";
-import { apiRecipesUrl } from "../../keys";
-import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import { useTheme } from "../../hooks/useTheme";
+import { useState, useEffect } from "react";
+
+import { projectFirestore } from "../../firebase/config";
 
 export default function Recipe() {
   const { mode } = useTheme();
   const { id } = useParams();
-  const { data: recipe, isPending, error } = useFetch(`${apiRecipesUrl}/${id}`);
+
+  const [data, setData] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    projectFirestore
+      .collection("recipes")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        setIsPending(false);
+        if (doc.exists) {
+          setData({ id: doc.id, ...doc.data() });
+        } else {
+          setError("The requested recipe does not exist...");
+        }
+      })
+      .catch((error) => {
+        setIsPending(false);
+        setError(error.message);
+      });
+  }, []);
+
   return (
     <div className={`recipe ${mode}`}>
       {isPending && <p className="pending">Loading...</p>}
       {error && <p className="error">{error}</p>}
-      {recipe && (
+      {data && (
         <>
-          <h2 className="page-title">{recipe.title}</h2>
-          <p>Takes {recipe.cookingTime} to cook.</p>
+          <h2 className="page-title">{data.title}</h2>
+          <p>Takes {data.cookingTime} to cook.</p>
           <ul>
-            {recipe.ingredients.map((ing) => (
+            {data.ingredients.map((ing) => (
               <li key={ing}>{ing}</li>
             ))}
           </ul>
-          <p className="method">{recipe.method}</p>
+          <p className="method">{data.method}</p>
         </>
       )}
     </div>
